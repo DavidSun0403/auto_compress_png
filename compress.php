@@ -57,7 +57,7 @@ function compress_png($path_to_png_file, $max_quality = 90)
     // '-' makes it use stdout, required to save to $compressed_png_content variable
     // '<' makes it read from the given file path
     // escapeshellarg() makes this safe to use with any path
-    $compressed_png_content = shell_exec("/usr/share/pngquant/pngquant --quality=$min_quality-$max_quality - < ".escapeshellarg(    $path_to_png_file));
+    $compressed_png_content = shell_exec("./pngquant/pngquant --quality=$min_quality-$max_quality - < ".escapeshellarg(    $path_to_png_file));
 
     if (!$compressed_png_content) {
         throw new Exception("Conversion to compressed PNG failed. Is pngquant 1.8+ installed on the server?");
@@ -70,4 +70,4 @@ foreach($files as $file){
   $compressed_png_content = compress_png($file);
   file_put_contents($file, $compressed_png_content);
 }
-echo "compress successfully.";
+echo "compress successfully.\n";
